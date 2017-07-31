@@ -1,0 +1,34 @@
+<ion-view title="Login" hide-back-button="true" id="page5" style="background-color:#;">
+  <ion-content padding="true" class="has-header">
+    <form id="login-form1" class="list">
+      <div>
+        <img src="img/logo.png" style="display: block; width: 62%; height: auto; margin-left: auto; margin-right: auto;">
+      </div>
+      <div class="spacer" style="width: 300px; height: 34px;"></div>
+      <ion-list id="login-list1">
+        <label class="item item-input" id="login-input1">
+          <input ng-model="vm.user_id" type="text" placeholder="User Name">
+        </label>
+        <label class="item item-input" id="login-input2">
+          <input ng-model="vm.password" type="password" placeholder="Password">
+        </label>
+      </ion-list>
+      <a ng-href="#/tab/home" id="login-button1" style="color:#FFFFFF;" class="button button-positive  button-block">Log in</a>
+      <button ng-href="#/registration" class="button button-clear button-positive">
+ SignUp
+</button>
+    </form>
+    <div class="spacer" style="width: 300px; height: 50px;"></div>
+    <!--   <div id="login-markdown1" style="text-align:center;font-size: 12px"" class="show-list-numbers-and-dots">
+      <p style="color:#000000;">Mobile Solution by</p>
+    </div>
+    <div>
+      <img href="http://creativehub.lk/" src="img/WPXYYF5GRLScqiZMAphI_creativehub_black.png" style="display: block; width: 41%; height: auto; margin-left: auto; margin-right: auto;">
+    </div>
+    <div   style="text-align:center; " class="show-list-numbers-and-dots">
+      <p style="color:#000000; font-size: 12px">
+        <a href="http://creativehub.lk/" target="_system">www.creativehub.lk</a> | info@creativehub.lk
+      </p>
+    </div> -->
+  </ion-content>
+</ion-view>

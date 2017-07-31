@@ -7,34 +7,19 @@
 <ion-view >
   <ion-content class="padding">
     <p>
-      <h1> Firebase does not sync offline cache if the app is killed
+      <h1> {{chat.name}}
       </h1>
     </p>
-    <div class="list card">
+    <div ng-repeat="v in chat.thread" class="list card">
       <div class="item item-avatar">
         <img ng-src="{{chat.face}}">
-        <p>Dinesh Lanka</p>
+        <p>{{v.user}}</p>
       </div>
       <div>
-        <p>In one of my iOS App development project, whenever I am trying to push a view on ARSCNView. the app is freezing here
-          below is my code. Please suggest an appropriate solution if you are aware of the same. -> getting app froze when
-          push view on sceneView controller</p>
+        <p>{{v.desc}}</p>
       </div>
     </div>
-    <div class="list card">
-      <div class="item item-avatar">
-        <img ng-src="img/mike.png">
-        <p>Chanaka Lakmal</p>
-      </div>
-      <div>
-        <p>'m building an application that uses Hibernate and Mysql, My entire databse has 15 tables. Here is the problem: I
-          start inserting records into the database and viewing them using query.list(); to get the added records, howerver
-          after a while of getting "correct" results, I start not having the last record I added, I add again and it's the
-          same(the one that was showing before shows but not the last one I added), I refresh and I get the right records,
-          I refresh again and I get 32 records instead of 43, I'm not using any complicated queries just a Select with a
-          condition, as you can see this is really weird.</p>
-      </div>
-    </div>
+   
     <button class="button button-calm button-positive">
   Reply
 </button>
