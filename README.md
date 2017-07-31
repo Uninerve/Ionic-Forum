@@ -1,4 +1,4 @@
 # Ionic-Forum
 
 
-Ionic APP ID = https://github.com/Kerbio/Ionic-Forum.git
+Ionic APP ID = aae3f49d
