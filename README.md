@@ -1,4 +1,10 @@
-### Ionic-Forum
+# Ionic-Forum
+
+## App Features
+1. List topics / View topic / View user
+2. Add topic / Reply to topic
+3. Edit user settings / Login / Register New User
+4. Search Topics
 
 ## Installation & Usage
 * Clone this repo.
