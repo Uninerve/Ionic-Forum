@@ -1,6 +1,11 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function ($scope) {})
+.controller('LoginCtrl', function ($scope,$state) {
+   $scope.goToRegistration = function(){
+     $state.go('registration');
+   }
+
+})
 
 .controller('HomeCtrl', function ($scope, $ionicModal, Chats) {
   // With the new view caching in Ionic, Controllers are only called
@@ -42,7 +47,7 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
+.controller('ChatDetailCtrl', function ($scope, $stateParams,$ionicModal, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
 
   $ionicModal.fromTemplateUrl('templates/reply-to-topic.html', {
