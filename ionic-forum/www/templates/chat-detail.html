@@ -12,7 +12,7 @@
     </p>
     <div ng-repeat="v in chat.thread" class="list card">
       <div class="item item-avatar">
-        <img ng-src="{{chat.face}}">
+        <img href="#/tab/user/{{v.userId}}" ng-src="{{chat.face}}">
         <p>{{v.user}}</p>
       </div>
       <div>
