@@ -3,22 +3,24 @@
     <div class="list card">
       <ion-item class="profile-item">
         <div class="profile-picture big-profile-picture">
-          <img src="img/max.png">
+          <img src="{{user.pic}}">
         </div>
         <h2 class="profile-name dark">{{user.name}}</h2>
         <div class="profile-info">{{user.info}}</div>
       </ion-item>
       <div class="list list-inset">
         <div class="item">
-          Maziam Ziyar
+          {{user.fullName}}
         </div>
         <div class="item">
-          nuwh@gmai.com
+          {{user.email}}
         </div>
         <div class="item">
-          +9479896789
+          {{user.mobile}}
         </div>
-
+        <div class="item">
+          {{user.address}}
+        </div>
       </div>
     </div>
   </ion-content>
