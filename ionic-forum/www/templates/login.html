@@ -7,13 +7,13 @@
       <div class="spacer" style="width: 300px; height: 34px;"></div>
       <ion-list id="login-list1">
         <label class="item item-input" id="login-input1">
-          <input ng-model="vm.user_id" type="text" placeholder="User Name">
+          <input ng-model="user.username" type="text" placeholder="User Name">
         </label>
         <label class="item item-input" id="login-input2">
-          <input ng-model="vm.password" type="password" placeholder="Password">
+          <input ng-model="user.password" type="password" placeholder="Password">
         </label>
       </ion-list>
-      <a ng-click="login()" id="login-button1" style="color:#FFFFFF;" class="button button-positive  button-block">Log in</a>
+      <a ng-click="login(user)" id="login-button1" style="color:#FFFFFF;" class="button button-positive  button-block">Log in</a>
       <button ng-click="goToRegistration()" class="button button-clear button-positive">
  SignUp
 </button>

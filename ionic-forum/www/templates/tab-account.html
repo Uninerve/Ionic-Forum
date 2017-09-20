@@ -3,14 +3,14 @@
     <div class="list card">
       <ion-item class="profile-item">
         <div class="profile-picture big-profile-picture">
-          <img src="{{user.pic}}">
+          <img src="{{user.pic}} || ./img/ionic.png">
         </div>
-        <h2 class="profile-name dark">{{user.name}}</h2>
+        <h2 class="profile-name dark">{{user.username}}</h2>
         <div class="profile-info">{{user.info}}</div>
       </ion-item>
       <div class="list list-inset">
         <div class="item">
-          {{user.fullName}}
+          {{user.first_name}}  {{user.last_name}}
         </div>
         <div class="item">
           {{user.email}}
@@ -23,5 +23,8 @@
         </div>
       </div>
     </div>
+    <button ng-click="logout()" class="button button-full button-positive">
+  Logout
+</button>
   </ion-content>
 </ion-view>

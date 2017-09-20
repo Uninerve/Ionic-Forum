@@ -26,7 +26,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     })
     .state('registration', {
       url: '/registration',
-      templateUrl: 'templates/registration.html'
+      templateUrl: 'templates/registration.html',
+      controller: 'SignupCtrl'
     })
 
   .state('login', {
