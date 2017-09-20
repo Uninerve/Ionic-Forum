@@ -266,6 +266,7 @@ angular.module('starter.controllers', [])
           };
 
           user.password = (MD5(user.password));
+          user.profile = "img/user.png";
 
           console.log(user.password);
 
@@ -307,6 +308,14 @@ angular.module('starter.controllers', [])
   })
 
 .controller('LoginCtrl', function ($scope, $state, $window, $http, $ionicPopup, $ionicLoading) {
+  $http.get('http://introtoapps.com/datastore.php?action=load&appid=215432814&objectid=posts')
+    .success(function (data, status, headers, config) {
+      console.log(data);
+      $window.localStorage['posts'] = JSON.stringify(data);
+
+    }).error(function (data, status, headers, config) {
+      console.debug("Error status : " + status);
+    });
   if ($window.localStorage['user']) {
     $state.go('tab.home');
   }
@@ -598,7 +607,7 @@ angular.module('starter.controllers', [])
 
   })
 
-.controller('HomeCtrl', function ($scope, $ionicModal, Chats) {
+.controller('HomeCtrl', function ($scope, $ionicModal, $window,$http, Chats) {
 
   $scope.chats = Chats.all();
   $scope.topic = null;
@@ -617,31 +626,37 @@ angular.module('starter.controllers', [])
   $scope.openNewTopicModal = function () {
     $scope.modal.show();
   };
-  $scope.closeNewTopicModal = function () {
-    console.log($scope.topic);
-    $scope.user = {
-      userId: 1,
-      userName: "buwaneka",
-      fullName: "Buwaneka Fenando",
-      address: "Piliyandala Sri Lanka",
-      email: "neshila67@gmail.com",
-      mobile: "+93 7789 078",
-      pic: "img/mike.png"
+  $scope.closeNewTopicModal = function (topic) {
+    console.log(topic);
 
-    };
-    $scope.modal.hide();
-    $scope.chats.push({
+    var posts = JSON.parse($window.localStorage['posts']);
+    var user = JSON.parse($window.localStorage['user']);
+    var data = {
 
       id: 20 + Math.random() * 10,
-      name: "hgdfhgdifg hbbsh",
+      name: topic.name,
       lastText: 'Mobile Develeopment',
-      face: 'img/ben.png',
+      face: user.profile,
       thread: [{
-        user: $scope.user,
-        desc: 'I have just started develoing with ionic following a tutorial. Everythings seems actually quite logical - but now I am trying to upload my simple hello world code without any luck. On the command line I was able to login on my apps.ionic.io account and I was also able to link my local code with the app that I have created in the browser on apps.ionic.io.My app_id was then written to ionic.config.json.  I am also able to build the app and run it in the android simulator. But when I execute the following command it just does a build but doesnt seem to upload the generated code:'
+        user: user,
+        desc: topic.desc
       }]
-    })
-  };
+    };
+    posts.push(data);
+    var text= JSON.stringify(posts);
+    $http.get('http://introtoapps.com/datastore.php?action=save&appid=215432814&objectid=posts&data='+text)
+      .success(function (data, status, headers, config) {
+        $window.localStorage['posts']=text;
+        console.log(data);
+      }).error(function (data, status, headers, config) {
+  console.debug("Error status : " + status);
+});
+
+$scope.modal.hide(); $scope.chats.push(data);
+
+
+
+};
 
 })
 

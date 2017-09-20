@@ -1,7 +1,7 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function ($http) {
- 
+.factory('Chats', function ($http,$window) {
+
 
   /*
   var chats = [
@@ -241,7 +241,7 @@ angular.module('starter.services', [])
       desc: "That is indeed strange, it should look like this:"
     }]
   }];*/
- var news=  [ {
+  var news = [{
     id: 0,
     name: 'ionic2 - unable to retrieve/display data using navcontroller',
     lastText: 'Mobile Develeopment',
@@ -282,28 +282,33 @@ angular.module('starter.services', [])
     }]
   }];
 
-   var chats =news ;
+  var chats = JSON.parse($window.localStorage['posts']);
   var text = JSON.stringify(news);
 
-
-  $http.get('http://introtoapps.com/datastore.php?action=save&appid=215432814&objectid=posts&data='+text)
+/*
+  $http.get('http://introtoapps.com/datastore.php?action=save&appid=215432814&objectid=posts&data=' + text)
     .success(function (data, status, headers, config) {
       console.log(data);
-      
+
     }).error(function (data, status, headers, config) {
       console.debug("Error status : " + status);
     });
 
-    $http.get('http://introtoapps.com/datastore.php?action=load&appid=215432814&objectid=posts')
+  $http.get('http://introtoapps.com/datastore.php?action=load&appid=215432814&objectid=posts')
     .success(function (data, status, headers, config) {
       console.log(data);
-      var chats= data;
-      
+      var chats = data;
+
     }).error(function (data, status, headers, config) {
       console.debug("Error status : " + status);
     });
 
 
+    */
+
+
+ 
+ 
   var users = [{
     id: 1,
     userId: 1,
