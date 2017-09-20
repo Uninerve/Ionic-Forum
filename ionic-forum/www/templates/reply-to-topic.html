@@ -7,11 +7,11 @@
 
      <div class="list list-inset">
       <label class="item item-input">
-             <input type="text" placeholder="Add Text">
+             <input ng-model="text" type="text" placeholder="Add Text">
     </div>
 
 
-<button ng-click="closeReplyTopicModal()" class="button button-block button-positive" ng-click="closeNewTopicModal()">
+<button ng-click="closeReplyTopicModal(text)" class="button button-block button-positive" ng-click="closeNewTopicModal()">
   Add
 </button>
   </ion-content>

@@ -308,6 +308,10 @@ angular.module('starter.controllers', [])
   })
 
 .controller('LoginCtrl', function ($scope, $state, $window, $http, $ionicPopup, $ionicLoading) {
+  //
+
+
+  //
   $http.get('http://introtoapps.com/datastore.php?action=load&appid=215432814&objectid=posts')
     .success(function (data, status, headers, config) {
       console.log(data);
@@ -574,6 +578,7 @@ angular.module('starter.controllers', [])
         angular.forEach(data, function (value, key) {
 
           if (value.username === user.username) {
+
             $window.localStorage['user'] = JSON.stringify(value);
 
             console.log(value.username);
@@ -583,6 +588,18 @@ angular.module('starter.controllers', [])
             });
           }
         })
+
+        var data = [{
+
+          id: 1,
+          name: "This is First Topic",
+          lastText: 'Mobile Develeopment',
+          face: "img/max.png",
+          thread: [{
+            user: JSON.parse($window.localStorage['user']),
+            desc: "Every Action has a reaction"
+          }]
+        }];
 
         $ionicLoading.hide().then(function () {
           console.log("The loading indicator is now hidden");
@@ -607,7 +624,7 @@ angular.module('starter.controllers', [])
 
   })
 
-.controller('HomeCtrl', function ($scope, $ionicModal, $window,$http, Chats) {
+.controller('HomeCtrl', function ($scope, $ionicModal, $window, $http, Chats) {
 
   $scope.chats = Chats.all();
   $scope.topic = null;
@@ -633,7 +650,7 @@ angular.module('starter.controllers', [])
     var user = JSON.parse($window.localStorage['user']);
     var data = {
 
-      id: 20 + Math.random() * 10,
+      id: posts.length + 1,
       name: topic.name,
       lastText: 'Mobile Develeopment',
       face: user.profile,
@@ -643,25 +660,30 @@ angular.module('starter.controllers', [])
       }]
     };
     posts.push(data);
-    var text= JSON.stringify(posts);
-    $http.get('http://introtoapps.com/datastore.php?action=save&appid=215432814&objectid=posts&data='+text)
+    var text = JSON.stringify(posts);
+    $http.get('http://introtoapps.com/datastore.php?action=save&appid=215432814&objectid=posts&data=' + text)
       .success(function (data, status, headers, config) {
-        $window.localStorage['posts']=text;
+        $window.localStorage['posts'] = text;
         console.log(data);
       }).error(function (data, status, headers, config) {
-  console.debug("Error status : " + status);
-});
+        console.debug("Error status : " + status);
+      });
 
-$scope.modal.hide(); $scope.chats.push(data);
+    $scope.modal.hide();
+    $scope.chats.push(data);
 
 
 
-};
+  };
 
 })
 
-.controller('ChatDetailCtrl', function ($scope, $stateParams, $ionicModal, Chats) {
+.controller('ChatDetailCtrl', function ($scope, $stateParams, $window, $http, $ionicModal, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
+  var user = JSON.parse($window.localStorage['user']);
+  var posts = JSON.parse($window.localStorage['posts']);
+  //console.log(posts[$stateParams.chatId]);
+
 
   $ionicModal.fromTemplateUrl('templates/reply-to-topic.html', {
     scope: $scope,
@@ -673,7 +695,27 @@ $scope.modal.hide(); $scope.chats.push(data);
   $scope.openReplyTopicModal = function () {
     $scope.modal.show();
   };
-  $scope.closeReplyTopicModal = function () {
+  $scope.closeReplyTopicModal = function (text) {
+    var thread = posts[$stateParams.chatId].thread;
+    var data = {
+      "desc": text,
+      "user": user
+    };
+
+    thread.push(data);
+
+    posts[$stateParams.chatId].thread = thread;
+    var send = JSON.stringify(posts);
+
+    $http.get('http://introtoapps.com/datastore.php?action=save&appid=215432814&objectid=posts&data=' + send)
+      .success(function (data, status, headers, config) {
+        console.log(data);
+        $window.localStorage['posts'] = send;
+        $scope.chat = posts[$stateParams.chatId];
+      }).error(function (data, status, headers, config) {
+        console.debug("Error status : " + status);
+      });
+    console.log(text);
     $scope.modal.hide();
   };
 
@@ -682,6 +724,7 @@ $scope.modal.hide(); $scope.chats.push(data);
 .controller('AccountCtrl', function ($scope, $window, $state) {
   $scope.logout = function () {
     $window.localStorage['user'] = null;
+    $window.localStorage['posts'] = null;
     $state.go('login');
 
 
