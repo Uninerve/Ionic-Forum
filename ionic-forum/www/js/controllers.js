@@ -1,5 +1,7 @@
 angular.module('starter.controllers', [])
   .controller('SignupCtrl', function ($scope, $state, $window, $http, $ionicPopup, $timeout, $ionicLoading) {
+   
+   // Show Password Error
     $scope.showAlertPasswordError = function () {
       var alertPopup = $ionicPopup.alert({
         title: 'Error!',
@@ -11,6 +13,8 @@ angular.module('starter.controllers', [])
       });
     };
 
+
+    // Validate User signUp filed
     $scope.showAlertMissingField = function () {
       var alertPopup = $ionicPopup.alert({
         title: 'Error!',
@@ -33,7 +37,7 @@ angular.module('starter.controllers', [])
       });
     };
 
-
+    // Submit signUp forum
     $scope.signup = function (user) {
       console.log(user);
       $ionicLoading.show({
@@ -46,6 +50,8 @@ angular.module('starter.controllers', [])
         if (user.password != user.repeat_password) {
           $scope.showAlertPasswordError();
         } else {
+
+          // encript password using MD5
           var MD5 = function (s) {
             function L(k, d) {
               return (k << d) | (k >>> (32 - d))
@@ -309,6 +315,8 @@ angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', function ($scope, $state, $window, $http, $ionicPopup, $ionicLoading) {
 
+  // get list of posts
+
   $http.get('http://introtoapps.com/datastore.php?action=load&appid=215432814&objectid=posts')
     .success(function (data, status, headers, config) {
       console.log(data);
@@ -317,6 +325,8 @@ angular.module('starter.controllers', [])
     }).error(function (data, status, headers, config) {
       console.debug("Error status : " + status);
     });
+
+// Check userlogin session 
   if ($window.localStorage['user']) {
     $state.go('tab.home');
   }
@@ -336,7 +346,7 @@ angular.module('starter.controllers', [])
       $state.go('tab.home');
     });
   };
-
+// Submit Login Forum
   $scope.login = function (user) {
     $ionicLoading.show({
       template: 'Loading...',
@@ -345,7 +355,7 @@ angular.module('starter.controllers', [])
       console.log("The loading indicator is now displayed");
     });
     console.log($window.localStorage['user']);
-
+// encript password using MD5
     var MD5 = function (s) {
       function L(k, d) {
         return (k << d) | (k >>> (32 - d))
@@ -619,6 +629,7 @@ angular.module('starter.controllers', [])
 
   })
   .controller('UserPostCtrl', function ($scope, $stateParams, Chats) {
+    // Get selected user Posts
     $scope.chats = Chats.all();
     $scope.selectedUser = $stateParams.user;
     console.log($stateParams.username);
@@ -626,6 +637,7 @@ angular.module('starter.controllers', [])
   })
 
 .controller('SettingCtrl', function ($scope, $stateParams, $window, Chats,$state) {
+  //List existing users list
   $scope.users = JSON.parse($window.localStorage['users']);
   $scope.chats = Chats.all();
   console.log($scope.users);
@@ -638,15 +650,15 @@ angular.module('starter.controllers', [])
 })
 
 .controller('HomeCtrl', function ($scope, $ionicModal, $window, $http, Chats) {
-
+// get list of topics
   $scope.chats = Chats.all();
   $scope.topic = null;
 
-
+// remove topic
   $scope.remove = function (chat) {
     Chats.remove(chat);
   };
-
+// Add new Topic Modal
   $ionicModal.fromTemplateUrl('templates/new-topic.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -674,6 +686,7 @@ angular.module('starter.controllers', [])
     };
     posts.push(data);
     var text = JSON.stringify(posts);
+    // Add new tpoc to JSON file
     $http.get('http://introtoapps.com/datastore.php?action=save&appid=215432814&objectid=posts&data=' + text)
       .success(function (data, status, headers, config) {
         $window.localStorage['posts'] = text;
@@ -692,6 +705,8 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ChatDetailCtrl', function ($scope, $stateParams, $window, $http, $ionicModal, Chats) {
+
+  // Get selected topic
   $scope.chat = Chats.get($stateParams.chatId);
   var user = JSON.parse($window.localStorage['user']);
   var posts = JSON.parse($window.localStorage['posts']);
@@ -719,7 +734,7 @@ angular.module('starter.controllers', [])
 
     posts[$stateParams.chatId].thread = thread;
     var send = JSON.stringify(posts);
-
+// update topic , add reply
     $http.get('http://introtoapps.com/datastore.php?action=save&appid=215432814&objectid=posts&data=' + send)
       .success(function (data, status, headers, config) {
         console.log(data);
@@ -735,6 +750,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('AccountCtrl', function ($scope, $window, $state) {
+
   $scope.postlist = false;
   $scope.selectedUser = null;
   $scope.logout = function () {
@@ -744,6 +760,8 @@ angular.module('starter.controllers', [])
 
 
   };
+
+  //get current user infromation
   $scope.user = JSON.parse($window.localStorage['user']);
 
   console.log($window.localStorage['user']);
