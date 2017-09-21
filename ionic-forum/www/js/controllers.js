@@ -570,18 +570,21 @@ angular.module('starter.controllers', [])
 
     $http.get('http://introtoapps.com/datastore.php?action=load&appid=215432814&objectid=users')
       .success(function (data, status, headers, config) {
-        $window.localStorage['users']= JSON.stringify(data);
+        $window.localStorage['users'] = JSON.stringify(data);
         angular.forEach(data, function (value, key) {
 
           if (value.username === user.username) {
 
             $window.localStorage['user'] = JSON.stringify(value);
+            if (value.password === password) {
+              console.log(value.username);
+              $scope.showAlertSuccess();
+              $ionicLoading.hide().then(function () {
+                console.log("The loading indicator is now hidden");
+              });
+            }
 
-            console.log(value.username);
-            $scope.showAlertSuccess();
-            $ionicLoading.hide().then(function () {
-              console.log("The loading indicator is now hidden");
-            });
+
           }
         })
 
@@ -615,9 +618,17 @@ angular.module('starter.controllers', [])
     console.log($scope.user);
 
   })
-  .controller('SettingCtrl', function ($scope, $stateParams,$window, Chats) {
-    $scope.users =JSON.parse($window.localStorage['users']);
+  .controller('SettingCtrl', function ($scope, $stateParams, $window, Chats) {
+    $scope.users = JSON.parse($window.localStorage['users']);
+    $scope.chats = Chats.all();
     console.log($scope.users);
+    $scope.postlist = false;
+    $scope.selectedUser = null;
+    $scope.selectUser=function(user){
+      console.log(user);
+      $scope.postlist = true;
+      $scope.selectedUser =user;
+    }
 
   })
 
@@ -719,6 +730,8 @@ angular.module('starter.controllers', [])
 })
 
 .controller('AccountCtrl', function ($scope, $window, $state) {
+  $scope.postlist = false;
+  $scope.selectedUser = null;
   $scope.logout = function () {
     $window.localStorage['user'] = null;
     $window.localStorage['posts'] = null;
