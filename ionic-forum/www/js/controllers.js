@@ -308,10 +308,7 @@ angular.module('starter.controllers', [])
   })
 
 .controller('LoginCtrl', function ($scope, $state, $window, $http, $ionicPopup, $ionicLoading) {
-  //
 
-
-  //
   $http.get('http://introtoapps.com/datastore.php?action=load&appid=215432814&objectid=posts')
     .success(function (data, status, headers, config) {
       console.log(data);
@@ -573,8 +570,7 @@ angular.module('starter.controllers', [])
 
     $http.get('http://introtoapps.com/datastore.php?action=load&appid=215432814&objectid=users')
       .success(function (data, status, headers, config) {
-        console.log(data);
-
+        $window.localStorage['users']= JSON.stringify(data);
         angular.forEach(data, function (value, key) {
 
           if (value.username === user.username) {
@@ -619,8 +615,9 @@ angular.module('starter.controllers', [])
     console.log($scope.user);
 
   })
-  .controller('SettingCtrl', function ($scope, $stateParams, Chats) {
-
+  .controller('SettingCtrl', function ($scope, $stateParams,$window, Chats) {
+    $scope.users =JSON.parse($window.localStorage['users']);
+    console.log($scope.users);
 
   })
 
