@@ -1,22 +1,11 @@
 <ion-view view-title="Home">
   <ion-content>
-    <div ng-if="!postlist">
+    <div >
       <ion-list>
-        <ion-item  class="item-remove-animate item-avatar item-icon-right" ng-repeat="user in users  | filter:search | orderBy:'-id'"
+        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="user in users  | filter:search | orderBy:'-id'"
           type="item-text-wrap" ng-click="selectUser(user)">
           <img ng-src="{{user.profile}}">
           <h2>{{user.first_name}} {{user.last_name}}</h2>
-          <i class="icon ion-chevron-right icon-accessory"></i>
-        </ion-item>
-      </ion-list>
-    </div>
-    <div ng-if="postlist">
-      <ion-list>
-        <ion-item ng-if="selectedUser.username"class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats  | filter:search | orderBy:'-id'"
-          type="item-text-wrap" href="#/tab/home/{{chat.id}}">
-          <img ng-src="{{chat.thread[0].user.profile}}">
-          <h2>{{chat.thread[0].user.username}}</h2>
-          <p>{{chat.lastText}}</p>
           <i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>
       </ion-list>

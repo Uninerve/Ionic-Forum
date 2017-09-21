@@ -618,19 +618,24 @@ angular.module('starter.controllers', [])
     console.log($scope.user);
 
   })
-  .controller('SettingCtrl', function ($scope, $stateParams, $window, Chats) {
-    $scope.users = JSON.parse($window.localStorage['users']);
+  .controller('UserPostCtrl', function ($scope, $stateParams, Chats) {
     $scope.chats = Chats.all();
-    console.log($scope.users);
-    $scope.postlist = false;
-    $scope.selectedUser = null;
-    $scope.selectUser=function(user){
-      console.log(user);
-      $scope.postlist = true;
-      $scope.selectedUser =user;
-    }
-
+    $scope.selectedUser = $stateParams.user;
+    console.log($stateParams.user);
+  
   })
+
+.controller('SettingCtrl', function ($scope, $stateParams, $window, Chats,$state) {
+  $scope.users = JSON.parse($window.localStorage['users']);
+  $scope.chats = Chats.all();
+  console.log($scope.users);
+  $scope.postlist = false;
+  $scope.selectedUser = null;
+  $scope.selectUser = function (user) {
+    console.log(user);
+    $state.go('tab.postUser',{'user':123});
+  }
+})
 
 .controller('HomeCtrl', function ($scope, $ionicModal, $window, $http, Chats) {
 
