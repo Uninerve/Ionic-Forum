@@ -621,7 +621,7 @@ angular.module('starter.controllers', [])
   .controller('UserPostCtrl', function ($scope, $stateParams, Chats) {
     $scope.chats = Chats.all();
     $scope.selectedUser = $stateParams.user;
-    console.log($stateParams.user);
+    console.log($stateParams.username);
   
   })
 

@@ -76,7 +76,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
   .state('tab.postUser', {
-    url: '/postUser',
+    url: '/setting/:username',
     views: {
       'tab-setting': {
         templateUrl: 'templates/tab-post-user.html',
