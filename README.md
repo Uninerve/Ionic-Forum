@@ -49,4 +49,4 @@ ionic cordova platform add ios
 ```
 
 ## <a name="contributing"></a>Contributing
-We love our contributors! Please read our [README file](README.md) to learn how you can start project for development and use 
+We love our contributors! Please read our [README file](README.md) 
