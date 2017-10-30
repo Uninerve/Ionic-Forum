@@ -1,6 +1,5 @@
 Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via issue or on [gitter chat] (https://gitter.im/99xt/interns-portal) before making a change.
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
