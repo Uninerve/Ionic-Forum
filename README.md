@@ -47,3 +47,6 @@ ionic cordova platform add ios
 ```
    ionic cordova build ios
 ```
+
+## <a name="contributing"></a>Contributing
+We love our contributors! Please read our [README file](README.md) to learn how you can start project for development and use 
